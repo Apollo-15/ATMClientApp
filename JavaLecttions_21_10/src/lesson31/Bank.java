@@ -89,8 +89,7 @@ public class Bank {
             String[] words = builder.toString().split("\n");
             
             Pattern patternForNames = Pattern.compile("\\b[a-zA-Z]+\\b");
-            Pattern patternForCards = Pattern.compile("\\d{4} \\d{4} \\d{4} \\d{4}[A-Z]+\\d+\\.\\d+");
-
+            Pattern patternForCards = Pattern.compile("\\d{4} \\d{4} \\d{4} \\d{4}[A-Z]{3}\\d+\\.\\d+");
 
             for (String string : words) {
                 Matcher matcherForNames = patternForNames.matcher(string);
@@ -98,15 +97,15 @@ public class Bank {
                 if (matcherForNames.find()) {
                     currentName = matcherForNames.group();
                     System.out.println(currentName);
-                    cards.clear();
-
                     while(matcherForCards.find()){
                         currentCard = matcherForCards.group();
                         System.out.println(currentCard);
                         cards.add(new Card(currentCard));
                     }
-                    
                     clients.add(new Client(currentName, new ArrayList<>(cards)));
+                    cards.clear();
+                } else {
+                    System.out.println("Nothing founded in: " + string);
                 }
             }
 
