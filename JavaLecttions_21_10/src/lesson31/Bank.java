@@ -95,18 +95,20 @@ public class Bank {
                 Matcher matcherForNames = patternForNames.matcher(string);
                 Matcher matcherForCards = patternForCards.matcher(string);
                 if (matcherForNames.find()) {
-                    currentName = matcherForNames.group();
-                    System.out.println(currentName);
-                    while(matcherForCards.find()){
-                        currentCard = matcherForCards.group();
-                        System.out.println(currentCard);
-                        cards.add(new Card(currentCard));
+                    if (currentName != null) {
+                        clients.add(new Client(currentName, new ArrayList<>(cards)));
                     }
-                    clients.add(new Client(currentName, new ArrayList<>(cards)));
+                    currentName = matcherForNames.group();
                     cards.clear();
                 } else {
-                    System.out.println("Nothing founded in: " + string);
+                    while(matcherForCards.find()){
+                        currentCard = matcherForCards.group();
+                        cards.add(new Card(currentCard));
+                    }
                 }
+            }
+            if (currentName != null) {
+                clients.add(new Client(currentName, new ArrayList<>(cards)));
             }
 
                 
@@ -114,10 +116,9 @@ public class Bank {
                 System.out.println("Error.");
                 exception.printStackTrace();
             }
-        // System.out.println(cards);
+            
         System.out.println(clients);
-        System.out.println(cards.size());
-        System.out.println(clients.size());
+        System.out.println("Array size: " + clients.size());
         return clients;
     }
 }

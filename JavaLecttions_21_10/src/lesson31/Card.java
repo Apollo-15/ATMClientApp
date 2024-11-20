@@ -18,11 +18,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "cardNumber='" + cardNumber + '\'' +
-                ", currency=" + currency +
-                ", balance=" + balance +
-                '}';
+        return "\n" + cardNumber;
     }
 
     public Card(String cardNumber, double balance, Currency currency) {
